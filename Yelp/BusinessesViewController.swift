@@ -19,7 +19,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
 
 //        Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
@@ -48,14 +48,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BusinessCell") as? BusinessCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("BusinessCell", forIndexPath: indexPath) as? BusinessCell
         cell!.business = self.businesses[indexPath.row]
         
         return cell!
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.businesses?.count != nil {
+        if businesses != nil {
             return self.businesses.count
         } else {
             return 0
