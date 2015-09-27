@@ -15,9 +15,37 @@ import UIKit
 class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SwitchCellDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    var filterData: [AnyObject]!
     var categories: [[String:String]]!
     var switchStates = [Int:Bool]()
     weak var delegate: FiltersViewControllerDelegate?
+    let HeaderViewIdentifier = "TableViewHeaderView"
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.delegate = self
+        tableView.dataSource = self
+
+        categories = yelpCategories()
+        //should probably use enum for Sort By
+        filterData = [["Deals", ["blah"]],
+            ["Radius", ["auto", "0.3 mi", "1 mi", "5 mi", "20 mi"]],
+            ["Sort By", ["Best", "Distance", "Highest Rated"]],
+            ["Categories", categories!]]
+
+        tableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+    func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
+        let indexPath = tableView.indexPathForCell(switchCell)!
+        print("filters view controller got the switch event")
+        switchStates[indexPath.row] = value
+    }
     
     @IBAction func onSearch(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -41,38 +69,54 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        categories = yelpCategories()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
-        let indexPath = tableView.indexPathForCell(switchCell)!
-        print("filters view controller got the switch event")
-        switchStates[indexPath.row] = value
-    }
-    
+
+    //Table View
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-        
-        cell.switchLabel.text = categories[indexPath.row]["name"]
         cell.delegate = self
         
-        cell.onSwitch.on = switchStates[indexPath.row] ?? false
-
+        if indexPath.section == 3 {
+            cell.switchLabel.text = categories[indexPath.row]["name"]
+            cell.onSwitch.on = switchStates[indexPath.row] ?? false
+        } else {
+//            cell.switchLabel.text = categories[indexPath.row]["name"]
+//            cell.delegate = self
+//
+//            cell.onSwitch.on = switchStates[indexPath.row] ?? false
+        }
+        
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return filterData[section][1].count
+        //return categories.count
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return filterData.count
+        //return categories.count
+    }
+    
+    //Table View HEADER
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier(HeaderViewIdentifier) as UITableViewHeaderFooterView?
+        if section == 0 {
+            return nil
+        } else {
+            header!.textLabel!.text = filterData[section][0] as? String
+        }
+        
+        return header
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        } else {
+            return 30
+        }
     }
 
     //Yelp Categories
