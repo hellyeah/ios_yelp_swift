@@ -39,7 +39,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
 //            }
 //        })
         
-        Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm("Restaurants", sort: .Distance, categories: nil, deals: nil) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.filteredData = businesses
             self.tableView.reloadData()
@@ -70,7 +70,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             return 0
         }
     }
-
+    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         filteredData = searchText.isEmpty ? businesses : businesses.filter({(business: Business) -> Bool in
             return (business.name! + business.address! + business.categories!).rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
@@ -78,7 +78,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.reloadData()
     }
-
+    
 
     /*
     // MARK: - Navigation
@@ -91,12 +91,29 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
-        
-        var categories = filters["categories"] as? [String]
-        Business.searchWithTerm("Restaurants", sort: nil, categories: categories, deals: nil) {
+        print("filters \(filters)")
+        let categories = filters["categories"] as? [String]
+        let sortString = filters["sortBy"] as? String
+        let sort = getSortFromString(sortString!)
+        let deals = filters["deals"] as? Bool
+        Business.searchWithTerm("Restaurants", sort: sort, categories: categories, deals: deals) {
                 (businesses: [Business]!, error: NSError!) -> Void in
                 self.businesses = businesses
+                self.filteredData = self.businesses
                 self.tableView.reloadData()
+        }
+    }
+    
+    func getSortFromString(string: String) -> YelpSortMode {
+        switch string {
+        case "Best":
+            return YelpSortMode.BestMatched
+        case "Distance":
+            return YelpSortMode.Distance
+        case "Highest Rated":
+            return YelpSortMode.HighestRated
+        default:
+            return YelpSortMode.Distance
         }
     }
 

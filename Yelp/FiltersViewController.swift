@@ -18,32 +18,32 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     var filterData: [AnyObject]!
     var categories: [[String:String]]!
     var switchStates = [Int:Bool]()
-
+    
     var allStates = [String:[Int:Bool]]()
-
+    
     weak var delegate: FiltersViewControllerDelegate?
     let HeaderViewIdentifier = "TableViewHeaderView"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
-
+        
         categories = yelpCategories()
         //should probably use enum for Sort By
-        filterData = [["Deals", ["blah"]],
+        filterData = [["Deals", ["Deal"]],
             ["Radius", ["auto", "0.3 mi", "1 mi", "5 mi", "20 mi"]],
             ["Sort By", ["Best", "Distance", "Highest Rated"]],
             ["Categories", categories!]]
-
+        
         tableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
         print("filters view controller got the switch event")
@@ -55,7 +55,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             allStates[filterString] = [indexPath.row: value]
         }
         //allStates[filterData[indexPath.section][0] as! String] ||= []
-
+        
         print(allStates)
     }
     
@@ -64,12 +64,19 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         var filters = [String:AnyObject]()
         
         var selectedCategories = [String]()
+        var deals = [Bool]()
+        var radius = [String]()
+        var sortBy = [String]()
         
         for (section,states) in allStates {
             for (row,isSelected) in states {
                 switch section {
-                case "Deals","Radius","Sort By":
-                    print("blah")
+                case "Deals":
+                    deals.append(isSelected)
+                case "Radius":
+                    radius.append((filterData[1][1][row])! as! String)
+                case "Sort By":
+                    sortBy.append(filterData[2][1][row] as! String)
                 case "Categories":
                     if isSelected == true {
                         selectedCategories.append(categories[row]["code"]!)
@@ -77,10 +84,24 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
                 default:
                     print("blah")
                 }
-
             }
             if selectedCategories.count > 0 {
                 filters["categories"] = selectedCategories
+            }
+            if deals.count > 0 {
+                filters["deals"] = deals[0]
+            } else {
+                filters["deals"] = false
+            }
+            if radius.count > 0 {
+                filters["radius"] = radius[0]
+            } else {
+                filters["radius"] = "auto"
+            }
+            if sortBy.count > 0 {
+                filters["sortBy"] = sortBy[0]
+            } else {
+                filters["sortBy"] = "Distance"
             }
         }
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
@@ -90,17 +111,17 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-
+    
     //Table View
-
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
         cell.delegate = self
         //print("section:\(indexPath.section), row:\(indexPath.row)")
-
+        
         cell.onSwitch.on = allStates[filterData[indexPath.section][0] as! String]?[indexPath.row] ?? false
         
-
+        
         switch indexPath.section {
         case 0,1,2:
             cell.switchLabel.text = filterData[indexPath.section][1][indexPath.row] as? String ?? "label"
@@ -146,7 +167,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     //Yelp Categories
-
+    
     func yelpCategories() -> [[String:String]] {
         return [["name" : "Afghan", "code": "afghani"],
             ["name" : "African", "code": "african"],
