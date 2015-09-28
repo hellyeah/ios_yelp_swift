@@ -46,8 +46,8 @@
                                                         <constraint firstAttribute="width" constant="83" id="j9j-aL-MKB"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1. Grand pu bah" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRR-ey-YxA">
-                                                    <rect key="frame" x="214" y="8" width="114" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" misplaced="YES" text="1. Grand pu bah" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRR-ey-YxA">
+                                                    <rect key="frame" x="214" y="8" width="121" height="18"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -55,13 +55,6 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="469 Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HRY-aO-RfP">
                                                     <rect key="frame" x="305" y="32" width="78" height="16"/>
-                                                    <animations/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" red="0.3718300065445026" green="0.3718300065445026" blue="0.3718300065445026" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Thai, Seafood, and Salad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEB-h3-TVF">
-                                                    <rect key="frame" x="214" y="75" width="151" height="16"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.3718300065445026" green="0.3718300065445026" blue="0.3718300065445026" alpha="1" colorSpace="calibratedRGB"/>
@@ -88,6 +81,13 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Thai, Seafood, and Salad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEB-h3-TVF">
+                                                    <rect key="frame" x="214" y="75" width="151" height="16"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.3718300065445026" green="0.3718300065445026" blue="0.3718300065445026" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <animations/>
                                             <constraints>
@@ -103,17 +103,21 @@
                                                 <constraint firstItem="0kY-c6-wce" firstAttribute="top" secondItem="DNb-DG-XRw" secondAttribute="topMargin" constant="10" id="QKF-Ln-eRb"/>
                                                 <constraint firstItem="gsg-NJ-EWL" firstAttribute="top" secondItem="DNb-DG-XRw" secondAttribute="top" constant="7" id="R1e-Hq-h5I"/>
                                                 <constraint firstItem="nRR-ey-YxA" firstAttribute="top" secondItem="DNb-DG-XRw" secondAttribute="top" constant="8" id="X4X-lb-Kwk"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="eEB-h3-TVF" secondAttribute="trailing" constant="227" id="bYn-Tq-Vds"/>
                                                 <constraint firstItem="iKx-rp-ZfH" firstAttribute="top" secondItem="IPr-TX-1UK" secondAttribute="bottom" constant="4" id="dxS-rM-mvs"/>
                                                 <constraint firstAttribute="trailing" secondItem="iKx-rp-ZfH" secondAttribute="trailing" constant="8" id="hPA-HL-6TD"/>
                                                 <constraint firstItem="IPr-TX-1UK" firstAttribute="leading" secondItem="gsg-NJ-EWL" secondAttribute="trailing" constant="8" id="iNm-yL-jyp"/>
                                                 <constraint firstItem="gsg-NJ-EWL" firstAttribute="leading" secondItem="DNb-DG-XRw" secondAttribute="leading" constant="8" id="ijQ-dG-Mlg"/>
                                                 <constraint firstItem="HRY-aO-RfP" firstAttribute="centerY" secondItem="IPr-TX-1UK" secondAttribute="centerY" id="pYi-MZ-xa3"/>
+                                                <constraint firstItem="0kY-c6-wce" firstAttribute="leading" secondItem="nRR-ey-YxA" secondAttribute="trailing" constant="8" id="r8J-fC-HvU"/>
                                                 <constraint firstAttribute="trailing" secondItem="0kY-c6-wce" secondAttribute="trailing" constant="8" id="tY3-U2-a0g"/>
                                                 <constraint firstItem="0kY-c6-wce" firstAttribute="top" secondItem="DNb-DG-XRw" secondAttribute="top" constant="8" id="xCF-zr-Jh7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="eEB-h3-TVF" secondAttribute="trailing" constant="8" id="xTB-Gc-QdX"/>
                                                 <constraint firstItem="nRR-ey-YxA" firstAttribute="leading" secondItem="gsg-NJ-EWL" secondAttribute="trailing" constant="8" id="zCf-9k-KUL"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="bYn-Tq-Vds"/>
                                                     <exclude reference="QKF-Ln-eRb"/>
                                                 </mask>
                                             </variation>
